@@ -1,101 +1,87 @@
-import Image from "next/image";
+"use client";
+
+import Link from 'next/link';
+import { useAuth } from '../contexts/AuthContext';
+import { FaChartLine, FaUsers, FaTrophy } from 'react-icons/fa';
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const { user } = useAuth();
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  return (
+    <div className="min-h-[calc(100vh-4rem)] bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-900 dark:to-blue-900">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        {/* Hero Section */}
+        <div className="text-center">
+          <h1 className="text-4xl sm:text-6xl font-bold text-gray-900 dark:text-white mb-6">
+            Welcome to{' '}
+            <span className="text-blue-600 dark:text-blue-400">
+              DebateDomain
+            </span>
+          </h1>
+          <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
+            Engage in meaningful debates, improve your skills, and climb the ranks.
+          </p>
+          
+          {user ? (
+            <Link
+              href="/dashboard"
+              className="btn-primary text-lg px-8 py-3 shadow-lg hover:shadow-xl"
+            >
+              Go to Dashboard
+            </Link>
+          ) : (
+            <div className="space-x-4">
+              <Link
+                href="/login"
+                className="btn-secondary text-lg px-8 py-3"
+              >
+                Login
+              </Link>
+              <Link
+                href="/register"
+                className="btn-primary text-lg px-8 py-3 shadow-lg hover:shadow-xl"
+              >
+                Get Started
+              </Link>
+            </div>
+          )}
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+
+        {/* Features Section */}
+        <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="card-transition card p-6 text-center">
+            <div className="inline-block p-3 bg-blue-100 dark:bg-blue-900 rounded-lg mb-4">
+              <FaUsers className="h-6 w-6 text-blue-600 dark:text-blue-400" />
+            </div>
+            <h3 className="text-xl font-semibold mb-2">Real-Time Debates</h3>
+            <p className="text-gray-600 dark:text-gray-300">
+              Engage in live debates with users from around the world
+            </p>
+          </div>
+
+          <div className="card-transition card p-6 text-center">
+            <div className="inline-block p-3 bg-green-100 dark:bg-green-900 rounded-lg mb-4">
+              <FaChartLine className="h-6 w-6 text-green-600 dark:text-green-400" />
+            </div>
+            <h3 className="text-xl font-semibold mb-2">Skill Rating</h3>
+            <p className="text-gray-600 dark:text-gray-300">
+              Improve your ELO rating and track your progress
+            </p>
+          </div>
+
+          <div className="card-transition card p-6 text-center">
+            <div className="inline-block p-3 bg-purple-100 dark:bg-purple-900 rounded-lg mb-4">
+              <FaTrophy className="h-6 w-6 text-purple-600 dark:text-purple-400" />
+            </div>
+            <h3 className="text-xl font-semibold mb-2">Leaderboards</h3>
+            <p className="text-gray-600 dark:text-gray-300">
+              Compete to reach the top of the global rankings
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
+
+
